@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root, .theme-cosmic {
+  --bg-primary: #020617;
+  --bg-secondary: rgba(15, 23, 42, 0.45);
+  --accent-primary: #38bdf8;
+  --accent-glow: rgba(56, 189, 248, 0.6);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: rgba(255, 255, 255, 0.07);
+}
+
+.theme-purple {
+  --bg-primary: #0d0a1a;
+  --bg-secondary: rgba(21, 16, 43, 0.55);
+  --accent-primary: #a78bfa;
+  --accent-glow: rgba(167, 139, 250, 0.6);
+  --text-primary: #f5f3ff;
+  --text-secondary: #cbd5e1;
+  --border-color: rgba(167, 139, 250, 0.15);
+}
+
+.theme-emerald {
+  --bg-primary: #021a0e;
+  --bg-secondary: rgba(6, 40, 23, 0.55);
+  --accent-primary: #34d399;
+  --accent-glow: rgba(52, 211, 153, 0.6);
+  --text-primary: #ecfdf5;
+  --text-secondary: #a7f3d0;
+  --border-color: rgba(52, 211, 153, 0.15);
+}
+
+.theme-rose {
+  --bg-primary: #1a0a0a;
+  --bg-secondary: rgba(43, 16, 16, 0.55);
+  --accent-primary: #fb7185;
+  --accent-glow: rgba(251, 113, 133, 0.6);
+  --text-primary: #fff1f2;
+  --text-secondary: #fecdd3;
+  --border-color: rgba(251, 113, 133, 0.15);
+}
+
+.theme-amber {
+  --bg-primary: #1a1000;
+  --bg-secondary: rgba(43, 27, 0, 0.55);
+  --accent-primary: #fbbf24;
+  --accent-glow: rgba(251, 191, 36, 0.6);
+  --text-primary: #fffbeb;
+  --text-secondary: #fde68a;
+  --border-color: rgba(251, 191, 36, 0.15);
+}
+
+.theme-arctic {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --accent-primary: #0284c7;
+  --accent-glow: rgba(2, 132, 199, 0.3);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border-color: rgba(2, 132, 199, 0.15);
+}
+
+.theme-tokyo {
+  --bg-primary: #000000;
+  --bg-secondary: rgba(20, 20, 20, 0.65);
+  --accent-primary: #f0abfc;
+  --accent-glow: rgba(240, 171, 252, 0.7);
+  --text-primary: #fae8ff;
+  --text-secondary: #e9d5ff;
+  --border-color: rgba(240, 171, 252, 0.2);
+}
+
+.theme-steel {
+  --bg-primary: #111318;
+  --bg-secondary: rgba(25, 28, 35, 0.55);
+  --accent-primary: #94a3b8;
+  --accent-glow: rgba(148, 163, 184, 0.5);
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --border-color: rgba(148, 163, 184, 0.15);
+}
+
+@layer base {
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-secondary);
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  body, aside, main, div, button, select, input, p, span, a, h1, h2, h3 {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.1);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-glow);
+  border-radius: 9999px;
+}
+
+/* Glassmorphism custom classes */
+.glass-panel {
+  background: var(--bg-secondary) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: var(--bg-secondary) !important;
+  border-color: var(--accent-primary) !important;
+  box-shadow: 0 12px 40px 0 var(--accent-glow);
+  transform: translateY(-2px);
+}
+
+/* Custom Status Indicator Rings (Fix 1D) */
+.status-ring-ready {
+  position: relative;
+}
+.status-ring-ready::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  border: 2px solid #10b981; /* Emerald-500 */
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0.75;
+}
+
+.status-ring-processing {
+  position: relative;
+}
+.status-ring-processing::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  border: 2px solid #f59e0b; /* Amber-500 */
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0.75;
+}
+
+.status-ring-error {
+  position: relative;
+}
+.status-ring-error::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 9999px;
+  border: 2px solid #ef4444; /* Rose-500 */
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0.75;
+}

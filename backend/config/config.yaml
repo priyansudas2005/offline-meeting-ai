@@ -1,0 +1,60 @@
+# SAMVAD - Complete Configuration
+project:
+  name: "SAMVAD"
+  version: "1.0.0"
+  author: "Priyansu Das"
+  description: "Offline Meeting Assistant"
+
+paths:
+  base_dir: "."
+  recordings_dir: "data/recordings"
+  database_dir: "data/database"
+  models_dir: "models"
+  logs_dir: "logs"
+
+audio:
+  sample_rate: 16000
+  channels: 1
+  chunk_size: 1024
+  format: "pyaudio.paInt16"
+
+faster_whisper:
+  model_size: "base" # tiny, base, small, medium, large
+  device: "auto" # auto, cuda, cpu
+  compute_type: "auto" # auto, float16, int8
+  beam_size: 5
+  best_of: 5
+  temperature: [0.0, 0.2, 0.4, 0.6, 0.8, 1.0]
+  vad_filter: true
+  vad_parameters:
+    min_silence_duration_ms: 500
+    speech_pad_ms: 400
+    threshold: 0.5
+    min_speech_duration_ms: 250
+    max_speech_duration_s: 30
+
+database:
+  name: "transcripts.db"
+  max_connections: 10
+
+memo:
+  summary_max_length: 150
+  summary_min_length: 50
+  max_action_items: 5
+  max_key_points: 5
+
+qa:
+  model: "distilbert-base-cased-distilled-squad"
+  max_context_length: 512
+  confidence_threshold: 0.1
+
+ui:
+  theme: "dark"
+  language: "en"
+  debug: false
+
+logging:
+  level: "INFO"
+  format: "{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
+  rotation: "10 MB"
+  retention: "10 days"

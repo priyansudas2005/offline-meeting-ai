@@ -1,0 +1,29 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies including ffmpeg
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    ffmpeg \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install python packages
+COPY backend/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy backend codebase
+COPY backend/src ./src
+COPY backend/config ./config
+
+# Create data directories
+RUN mkdir -p data/database data/recordings logs models
+
+# Set runtime env variables
+ENV PYTHONPATH=/app
+ENV HF_HOME=/app/models/huggingface
+ENV FASTER_WHISPER_CACHE=/app/models/faster_whisper
+
+EXPOSE 8000
+
+CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000"]
